@@ -1,4 +1,4 @@
-package com.aenesgur.productstockservice.model;
+package com.aenesgur.productstockservice.model.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,6 +19,7 @@ public class Product {
     private String id;
     private String ref;
     private String name;
-    private String description;
     private BigDecimal price;
+    private Integer stockCount;
+    private Boolean inStock;
 }

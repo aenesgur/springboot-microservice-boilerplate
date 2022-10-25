@@ -4,6 +4,11 @@ HELP.md
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+### Volumes ###
+/mongo-data
+/postgres-productservice
+/mysql-orderservice
+
 ### STS ###
 .apt_generated
 .classpath

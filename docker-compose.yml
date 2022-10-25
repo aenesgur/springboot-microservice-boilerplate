@@ -38,10 +38,13 @@ services:
       - SPRING_DATASOURCE_PASSWORD=123456
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
       - eureka.client.serviceUrl.defaultZone=http://discovery-server:8761/eureka
+      - spring.kafka.consumer.group-id= product-id
+      - spring.kafka.bootstrap-servers=kafka:29092
 
     depends_on:
       - postgres-productservice
       - discovery-server
+      - kafka
 
   order-service:
     image: 'aenesgur/ms-ex/order-service-image'
@@ -70,12 +73,19 @@ services:
       context: ./product-stock-service/
     environment:
       - eureka.client.serviceUrl.defaultZone=http://discovery-server:8761/eureka
+      - spring.data.mongodb.host=mongo-productstockservice
+      - spring.data.mongodb.port=27017
+      - spring.data.mongodb.database=product-stock-db
+      - spring.kafka.bootstrap-servers=kafka:29092
+      - spring.kafka.consumer.group-id=product-id
     ports:
       - "4043:4043"
     expose:
       - "4043"
     depends_on:
       - discovery-server
+      - mongo-productstockservice
+      - kafka
 
   send-sms-service:
     image: 'aenesgur/ms-ex/send-sms-service'
@@ -90,7 +100,6 @@ services:
       - "4044"
     depends_on:
       - discovery-server
-
 
   ### Dependencies ###
   postgres-productservice:
@@ -126,7 +135,50 @@ services:
       - ./mysql-orderservice:/data/mysql
 
 
+  zookeeper:
+    image: zookeeper:3.7.0
+    container_name: zookeeper
+    restart: "no"
+    ports:
+      - "2181:2181"
 
+  kafka:
+    image: obsidiandynamics/kafka
+    container_name: kafka
+    restart: "no"
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: DOCKER_INTERNAL:PLAINTEXT,DOCKER_EXTERNAL:PLAINTEXT
+      KAFKA_LISTENERS: DOCKER_INTERNAL://:29092,DOCKER_EXTERNAL://:9092
+      KAFKA_ADVERTISED_LISTENERS: DOCKER_INTERNAL://kafka:29092,DOCKER_EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9092
+      KAFKA_INTER_BROKER_LISTENER_NAME: DOCKER_INTERNAL
+      KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
+      KAFKA_BROKER_ID: 1
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    depends_on:
+      - zookeeper
 
+  kafdrop:
+    image: obsidiandynamics/kafdrop
+    container_name: kafdrop
+    restart: "no"
+    ports:
+      - "9000:9000"
+    environment:
+      KAFKA_BROKERCONNECT: "kafka:29092"
+    depends_on:
+      - "kafka"
+
+  mongo-productstockservice:
+    container_name: mongo
+    image: mongo:4.4.14-rc0-focal
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    expose:
+      - "27017"
+    volumes:
+      - ./mongo-data:/data/db
 
 

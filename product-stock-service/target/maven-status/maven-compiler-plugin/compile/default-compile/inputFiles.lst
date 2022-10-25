@@ -1,1 +1,7 @@
+D:\Enes\Project\microservice\product-stock-service\src\main\java\com\aenesgur\productstockservice\service\ProductService.java
+D:\Enes\Project\microservice\product-stock-service\src\main\java\com\aenesgur\productstockservice\repository\ProductRepository.java
+D:\Enes\Project\microservice\product-stock-service\src\main\java\com\aenesgur\productstockservice\service\ProductServiceImpl.java
+D:\Enes\Project\microservice\product-stock-service\src\main\java\com\aenesgur\productstockservice\model\entity\Product.java
 D:\Enes\Project\microservice\product-stock-service\src\main\java\com\aenesgur\productstockservice\ProductStockService.java
+D:\Enes\Project\microservice\product-stock-service\src\main\java\com\aenesgur\productstockservice\service\consumer\CreateProductConsumer.java
+D:\Enes\Project\microservice\product-stock-service\src\main\java\com\aenesgur\productstockservice\model\dto\CreateProductDto.java

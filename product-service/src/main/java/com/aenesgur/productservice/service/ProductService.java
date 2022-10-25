@@ -2,6 +2,7 @@ package com.aenesgur.productservice.service;
 
 import com.aenesgur.productservice.model.dto.ProductRequestDto;
 import com.aenesgur.productservice.model.dto.ProductResponseDto;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.util.List;
 

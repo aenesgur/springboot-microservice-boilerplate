@@ -1,1 +1,8 @@
+com\aenesgur\productstockservice\model\dto\CreateProductDto.class
+com\aenesgur\productstockservice\model\entity\Product.class
+com\aenesgur\productstockservice\model\entity\Product$ProductBuilder.class
+com\aenesgur\productstockservice\service\ProductService.class
+com\aenesgur\productstockservice\repository\ProductRepository.class
+com\aenesgur\productstockservice\service\consumer\CreateProductConsumer.class
+com\aenesgur\productstockservice\service\ProductServiceImpl.class
 com\aenesgur\productstockservice\ProductStockService.class
