@@ -1,0 +1,12 @@
+com\aenesgur\orderservice\repository\OrderRepository.class
+com\aenesgur\orderservice\model\entity\Order.class
+com\aenesgur\orderservice\OrderService.class
+com\aenesgur\orderservice\model\entity\Order$OrderBuilder.class
+com\aenesgur\orderservice\model\dto\OrderItemDto.class
+com\aenesgur\orderservice\model\entity\OrderItem$OrderItemBuilder.class
+com\aenesgur\orderservice\service\OrderServiceImpl.class
+com\aenesgur\orderservice\model\dto\OrderDto$OrderDtoBuilder.class
+com\aenesgur\orderservice\controller\OrderController.class
+com\aenesgur\orderservice\service\OrderService.class
+com\aenesgur\orderservice\model\dto\OrderDto.class
+com\aenesgur\orderservice\model\entity\OrderItem.class
