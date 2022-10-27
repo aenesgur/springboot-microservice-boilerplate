@@ -38,7 +38,6 @@ services:
       - SPRING_DATASOURCE_PASSWORD=123456
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
       - eureka.client.serviceUrl.defaultZone=http://discovery-server:8761/eureka
-      - spring.kafka.consumer.group-id= product-id
       - spring.kafka.bootstrap-servers=kafka:29092
 
     depends_on:
@@ -58,6 +57,7 @@ services:
       - spring.datasource.username=root
       - spring.datasource.password=123456
       - spring.jpa.hibernate.ddl-auto=update
+      - spring.kafka.bootstrap-servers=kafka:29092
     ports:
       - "4042:4042"
     expose:
@@ -65,6 +65,7 @@ services:
     depends_on:
       - discovery-server
       - mysql-orderservice
+      - kafka
 
   product-stock-service:
     image: 'aenesgur/ms-ex/product-stock-service'
@@ -94,12 +95,15 @@ services:
       context: ./send-sms-service/
     environment:
       - eureka.client.serviceUrl.defaultZone=http://discovery-server:8761/eureka
+      - spring.kafka.bootstrap-servers=kafka:29092
+      - spring.kafka.consumer.group-id=send-sms-id
     ports:
       - "4044:4044"
     expose:
       - "4044"
     depends_on:
       - discovery-server
+      - kafka
 
   ### Dependencies ###
   postgres-productservice:

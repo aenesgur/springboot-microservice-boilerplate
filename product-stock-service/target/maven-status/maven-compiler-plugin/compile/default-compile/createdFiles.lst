@@ -1,8 +1,14 @@
 com\aenesgur\productstockservice\model\dto\CreateProductDto.class
+com\aenesgur\productstockservice\model\dto\ProductStockResponse.class
+com\aenesgur\productstockservice\controller\ProductStockController.class
+com\aenesgur\productstockservice\service\ProductService.class
+com\aenesgur\productstockservice\model\dto\ProductStockResponseDto.class
+com\aenesgur\productstockservice\repository\ProductRepository.class
+com\aenesgur\productstockservice\model\dto\ProductStockResponseDto$ProductStockResponseDtoBuilder.class
+com\aenesgur\productstockservice\ProductStockService.class
 com\aenesgur\productstockservice\model\entity\Product.class
 com\aenesgur\productstockservice\model\entity\Product$ProductBuilder.class
-com\aenesgur\productstockservice\service\ProductService.class
-com\aenesgur\productstockservice\repository\ProductRepository.class
+com\aenesgur\productstockservice\model\dto\BaseResponse.class
+com\aenesgur\productstockservice\model\dto\ProductStockResponse$ProductStockResponseBuilder.class
 com\aenesgur\productstockservice\service\consumer\CreateProductConsumer.class
 com\aenesgur\productstockservice\service\ProductServiceImpl.class
-com\aenesgur\productstockservice\ProductStockService.class
