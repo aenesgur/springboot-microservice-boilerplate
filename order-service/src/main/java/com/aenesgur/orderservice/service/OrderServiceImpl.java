@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 public class OrderServiceImpl implements OrderService{
 
     private final Producer producer;
-    private final WebClient.Builder webClientBuilder;
+    private final WebClient.Builder loadBalancedWebClientBuilder;
     private final OrderRepository orderRepository;
     @Override
     public void createOrder(OrderDto orderDto) {
@@ -33,7 +33,7 @@ public class OrderServiceImpl implements OrderService{
                 .map(OrderItemDto::getRef)
                 .collect(Collectors.toList());
 
-        ProductStockResponseDto productStockResponseDto  = webClientBuilder.build().get()
+        ProductStockResponseDto productStockResponseDto  = loadBalancedWebClientBuilder.build().get()
                 .uri("http://product-stock-service/api/product-stocks",
                         uriBuilder -> uriBuilder.queryParam("productRefs", orderItemRefs).build())
                 .retrieve()
