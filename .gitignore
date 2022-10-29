@@ -1,5 +1,10 @@
 HELP.md
-target/
+/api-gateway/target
+/discovery-server/target
+/order-service/target
+/product-service/target
+/product-stock-service/target
+/send-sms-service/target
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
