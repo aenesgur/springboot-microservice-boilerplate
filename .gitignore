@@ -1,5 +1,5 @@
 HELP.md
-/api-gateway/target
+/api-gateway/target/
 /discovery-server/target
 /order-service/target
 /product-service/target
@@ -11,8 +11,8 @@ HELP.md
 
 ### Volumes ###
 /mongo-data
-/postgres-productservice
 /mysql-orderservice
+/postgres-productservice/
 
 ### STS ###
 .apt_generated
