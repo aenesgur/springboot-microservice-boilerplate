@@ -2,6 +2,7 @@ package com.aenesgur.orderservice.controller;
 
 import com.aenesgur.orderservice.model.dto.OrderDto;
 import com.aenesgur.orderservice.service.OrderService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +18,13 @@ public class OrderController {
     private final OrderService orderService;
 
     @PostMapping
-    public ResponseEntity createOrder(@RequestBody OrderDto orderDto) {
+    @CircuitBreaker(name = "product-stock", fallbackMethod = "productStockFallbackMethod")
+    public ResponseEntity<String> createOrder(@RequestBody OrderDto orderDto) {
         orderService.createOrder(orderDto);
-        return new ResponseEntity(HttpStatus.CREATED);
+        return new ResponseEntity("Order created succesfully.", HttpStatus.CREATED);
+    }
+
+    public ResponseEntity<String> productStockFallbackMethod(OrderDto orderDto, RuntimeException exception){
+        return  new ResponseEntity<>("Something went wrong for this operation. Please try later...", HttpStatus.NOT_FOUND);
     }
 }
