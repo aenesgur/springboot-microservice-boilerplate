@@ -1,0 +1,82 @@
+logging:
+  level:
+    org:
+      springframework:
+        cloud:
+          gateway: DEBUG
+    reactor:
+      netty:
+        http:
+          client: DEBUG
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    discovery:
+      enabled: 'true'
+    gateway:
+      routes:
+      - id: order-service
+        uri: lb://order-service
+        predicates:
+          - Path=/api/orders/**
+        filters:
+          - name: CircuitBreaker
+            args:
+              name: order
+              fallbackUri: forward:/fallbacks/order
+
+      - id: product-service
+        uri: lb://product-service
+        predicates: Path=/api/products/**
+        filters:
+          - name: CircuitBreaker
+            args:
+              name: product
+              fallbackUri: forward:/fallbacks/product
+
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  health:
+    circuitbreakers:
+      enabled: 'true'
+  endpoint:
+    health:
+      show-details: always
+
+resilience4j.circuitbreaker:
+    instances:
+      product:
+        registerHealthIndicator: true
+        event-consumer-buffer-size: 10
+        slidingWindowSize: 5
+        slidingWindowType: COUNT_BASED
+        failureRateThreshold: 50
+        waitDurationInOpenState: 5s
+        permittedNumberOfCallsInHalfOpenState: 3
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+
+      order:
+        registerHealthIndicator: true
+        event-consumer-buffer-size: 10
+        slidingWindowSize: 5
+        slidingWindowType: COUNT_BASED
+        failureRateThreshold: 50
+        waitDurationInOpenState: 5s
+        permittedNumberOfCallsInHalfOpenState: 3
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+
+
+
+
