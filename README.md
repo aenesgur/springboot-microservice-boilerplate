@@ -27,6 +27,10 @@ mvn clean install
 docker-compose up -d
 ```
 
+### Postman Collection
+* Postman collection: /Microservice_App.postman_collection
+* Postman environment: /Microservice_App_Env.postman_environment
+
 ### Pages and Rest APIs
 * Spring Eureka: http://localhost:8761/
 * Kafdrop (Visualize the Apache Kafka): http://localhost:9000/
